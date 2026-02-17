@@ -23,8 +23,10 @@ function Cell(props: Cellprops) {
   );
 }
 export default function Board() {
-  const size = 50;
+  const [size, setSize] = useState(10);
   const [isAlive, setIsAlive] = useState<Record<string, boolean>>({});
+
+  const [ratio, setRation] = useState(50);
 
   const [intervalTime, setIntervalTime] = useState(1000);
   const [runGenerations, setRunGenerations] = useState(true);
@@ -37,7 +39,7 @@ export default function Board() {
       }),
     );
     setIsAlive(createIsAlive);
-  }, []);
+  }, [size]);
 
   const nextGeneration = () => {
     setIsAlive((prev) => {
@@ -78,6 +80,17 @@ export default function Board() {
     });
   };
 
+  const clearBoard = () => {
+    setIsAlive((prev) => {
+      const copy: { [key: string]: boolean } = { ...prev };
+      Object.keys(copy).forEach((key) => {
+        copy[key] = false;
+      });
+
+      return copy;
+    });
+  };
+
   useEffect(() => {
     let cancelled = false;
 
@@ -99,7 +112,7 @@ export default function Board() {
     setIsAlive((prev) => {
       const copy: { [key: string]: boolean } = { ...prev };
       Object.keys(copy).forEach((key) => {
-        copy[key] = Math.random() >= 0.5;
+        copy[key] = Math.random() <= ratio / 100;
       });
       return copy;
     });
@@ -123,7 +136,7 @@ export default function Board() {
     )),
   );
   return (
-    <div className="flex flex-col align-center gap-4">
+    <div className="flex flex-col items-center gap-4">
       <div
         className="grid game-of-life-container"
         style={{ gridTemplateColumns: `repeat(${size}, 50px` }}
@@ -131,6 +144,26 @@ export default function Board() {
         {board}
       </div>
       <div className="flex flex-col gap-4">
+        <input
+          value={size}
+          onChange={(e) => {
+            const newSize = Number(e.target.value);
+            if (isNaN(newSize)) {
+              return;
+            }
+            setSize(newSize);
+          }}
+        />
+        <input
+          value={ratio}
+          onChange={(e) => {
+            const newRatio = Number(e.target.value);
+            if (isNaN(newRatio)) {
+              return;
+            }
+            setRation(newRatio);
+          }}
+        />
         <button
           className="button"
           onClick={() => {
@@ -164,6 +197,15 @@ export default function Board() {
           }}
         >
           next gen
+        </button>
+        <button
+          disabled={runGenerations}
+          className="button"
+          onClick={() => {
+            clearBoard();
+          }}
+        >
+          clear
         </button>
       </div>
     </div>

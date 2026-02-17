@@ -1,0 +1,34 @@
+input {
+  border: solid 1px black;
+  width: 10rem;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  padding: 2px 5px;
+}
+
+button {
+  width: 10rem;
+  background: hsl(0, 0%, 90%);
+  border: 1px solid black;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: hsl(0, 0%, 85%);
+}
+
+button:disabled {
+  background: hsl(0, 0%, 75%);
+  color: gray;
+}
+button:disabled:hover {
+  background: hsl(0, 0%, 75%);
+}

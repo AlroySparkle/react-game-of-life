@@ -5,16 +5,7 @@
     width: fit-content;
     display: grid;
     border: 1px solid black;
-  }
-
-  .button {
-    width: 10rem;
-    background: hsl(0, 0%, 90%);
-    border: 1px solid black;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    gap: 1px;
+    background-color: black;
   }
 }
